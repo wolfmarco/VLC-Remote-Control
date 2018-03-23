@@ -1,0 +1,7 @@
+FROM node:8.10.0-alpine
+
+RUN yarn global add @angular/cli
+
+WORKDIR /src
+
+CMD ["ls"]
