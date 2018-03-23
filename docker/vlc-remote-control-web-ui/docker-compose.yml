@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ng-serve:
+    build: .
+    ports:
+     - "4200:4200"
+    volumes:
+      - "D:/Git-Repos/VLC-Remote-Control/src:/src"
+    command: ng serve -H 0.0.0.0 
