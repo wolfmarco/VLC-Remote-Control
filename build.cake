@@ -7,7 +7,7 @@ Task("Build-Docker-WebUi")
 {
   DockerComposeBuild( new DockerComposeBuildSettings() {
     Files = new string[] {
-      "./docker/vlc-remote-control-web-ui/docker-compose.yml"
+      "./docker-compose.yml"
     },
     ProjectName = "vlc-remote-control-web-ui"
   });
@@ -18,13 +18,13 @@ Task("Run-Docker-WebUi")
 {
   DockerComposeKill(new DockerComposeKillSettings() {
     Files = new string[] {
-      "./docker/vlc-remote-control-web-ui/docker-compose.yml"
+      "./docker-compose.yml"
     },
     ProjectName = "vlc-remote-control-web-ui"
   });
   DockerComposeUp(new DockerComposeUpSettings() {
     Files = new string[] {
-      "./docker/vlc-remote-control-web-ui/docker-compose.yml"
+      "./docker-compose.yml"
     },
     ProjectName = "vlc-remote-control-web-ui"
   },"ng-serve");

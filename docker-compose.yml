@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ng-serve:
+    build: ./src/vlc-remote-control-web-ui/
+    volumes:
+      - "./src:/src"
+    command: ng serve -H 0.0.0.0
+    ports:
+     - "4200:4200"
