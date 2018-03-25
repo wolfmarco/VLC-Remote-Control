@@ -2,18 +2,7 @@
 
 var target = Argument("target", "Default");
 
-Task("Build-Docker-WebUi")
-  .Does(() =>
-{
-  DockerComposeBuild( new DockerComposeBuildSettings() {
-    Files = new string[] {
-      "./docker-compose.yml"
-    },
-    ProjectName = "vlc-remote-control-web-ui"
-  });
-});
-
-Task("Run-Docker-WebUi")
+Task("Stop-WebUi")
   .Does(() =>
 {
   DockerComposeKill(new DockerComposeKillSettings() {
@@ -22,6 +11,12 @@ Task("Run-Docker-WebUi")
     },
     ProjectName = "vlc-remote-control-web-ui"
   });
+});
+
+Task("Run-WebUi")
+  .IsDependentOn("Stop-WebUi")
+  .Does(() =>
+{
   DockerComposeUp(new DockerComposeUpSettings() {
     Files = new string[] {
       "./docker-compose.yml"
@@ -31,8 +26,7 @@ Task("Run-Docker-WebUi")
 });
 
 Task("Default")
-  .IsDependentOn("Build-Docker-WebUi")
-  .IsDependentOn("Run-Docker-WebUi")
+  .IsDependentOn("Run-WebUi")
   .Does(() =>
 {
 });
