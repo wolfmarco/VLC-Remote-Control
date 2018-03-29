@@ -36,7 +36,7 @@ Task("Stop-WebApi")
   });
 });
 
-Task("Run-WebApi")
+Task("Build-WebApi")
   .IsDependentOn("Stop-WebApi")
   .Does(() =>
 {
@@ -46,6 +46,18 @@ Task("Run-WebApi")
     },
     ProjectName = "vlc-remote-control-web-api"
   },"build-web-api");
+});
+
+Task("Run-WebApi")
+  .IsDependentOn("Stop-WebApi")
+  .Does(() =>
+{
+  DockerComposeUp(new DockerComposeUpSettings() {
+    Files = new string[] {
+      "./docker-compose.yml"
+    },
+    ProjectName = "vlc-remote-control-web-api"
+  },"run-web-api");
 });
 
 Task("Default")

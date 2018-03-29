@@ -12,5 +12,10 @@ services:
     volumes:
       - "./src:/src"
     command: dotnet build
+  run-web-api:
+    build: ./src/vlc-remote-control-web-api/
+    volumes:
+      - "./src:/src"
+    command: dotnet run
     ports:
-     - "4200:4200"
+     - "5000:5000"
