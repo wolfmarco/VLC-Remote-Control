@@ -22,11 +22,34 @@ Task("Run-WebUi")
       "./docker-compose.yml"
     },
     ProjectName = "vlc-remote-control-web-ui"
-  },"ng-serve");
+  },"run-web-ui");
+});
+
+Task("Stop-WebApi")
+  .Does(() =>
+{
+  DockerComposeKill(new DockerComposeKillSettings() {
+    Files = new string[] {
+      "./docker-compose.yml"
+    },
+    ProjectName = "vlc-remote-control-web-api"
+  });
+});
+
+Task("Run-WebApi")
+  .IsDependentOn("Stop-WebApi")
+  .Does(() =>
+{
+  DockerComposeUp(new DockerComposeUpSettings() {
+    Files = new string[] {
+      "./docker-compose.yml"
+    },
+    ProjectName = "vlc-remote-control-web-api"
+  },"build-web-api");
 });
 
 Task("Default")
-  .IsDependentOn("Run-WebUi")
+  .IsDependentOn("Run-WebApi")
   .Does(() =>
 {
 });
