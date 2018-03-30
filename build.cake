@@ -2,66 +2,31 @@
 
 var target = Argument("target", "Default");
 
-Task("Stop-WebUi")
+Task("Stop")
   .Does(() =>
 {
   DockerComposeKill(new DockerComposeKillSettings() {
     Files = new string[] {
       "./docker-compose.yml"
     },
-    ProjectName = "vlc-remote-control-web-ui"
+    ProjectName = "vlc-remote-controli"
   });
 });
 
-Task("Run-WebUi")
-  .IsDependentOn("Stop-WebUi")
+Task("Run")
+  .IsDependentOn("Stop")
   .Does(() =>
 {
   DockerComposeUp(new DockerComposeUpSettings() {
     Files = new string[] {
       "./docker-compose.yml"
     },
-    ProjectName = "vlc-remote-control-web-ui"
-  },"run-web-ui");
-});
-
-Task("Stop-WebApi")
-  .Does(() =>
-{
-  DockerComposeKill(new DockerComposeKillSettings() {
-    Files = new string[] {
-      "./docker-compose.yml"
-    },
-    ProjectName = "vlc-remote-control-web-api"
-  });
-});
-
-Task("Build-WebApi")
-  .IsDependentOn("Stop-WebApi")
-  .Does(() =>
-{
-  DockerComposeUp(new DockerComposeUpSettings() {
-    Files = new string[] {
-      "./docker-compose.yml"
-    },
-    ProjectName = "vlc-remote-control-web-api"
-  },"build-web-api");
-});
-
-Task("Run-WebApi")
-  .IsDependentOn("Stop-WebApi")
-  .Does(() =>
-{
-  DockerComposeUp(new DockerComposeUpSettings() {
-    Files = new string[] {
-      "./docker-compose.yml"
-    },
-    ProjectName = "vlc-remote-control-web-api"
-  },"run-web-api");
+    ProjectName = "vlc-remote-control"
+  },"run");
 });
 
 Task("Default")
-  .IsDependentOn("Run-WebApi")
+  .IsDependentOn("Run")
   .Does(() =>
 {
 });

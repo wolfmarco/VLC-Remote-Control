@@ -1,3 +1,0 @@
-FROM microsoft/dotnet:2.0.6-sdk-2.1.101-stretch
-
-WORKDIR /src/vlc-remote-control-web-api
