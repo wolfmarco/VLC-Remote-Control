@@ -2,7 +2,7 @@
 
 var target = Argument("target", "Default");
 
-Task("Stop")
+Task("stop")
   .Does(() =>
 {
   DockerComposeKill(new DockerComposeKillSettings() {
@@ -13,8 +13,8 @@ Task("Stop")
   });
 });
 
-Task("Run")
-  .IsDependentOn("Stop")
+Task("run")
+  .IsDependentOn("stop")
   .Does(() =>
 {
   DockerComposeUp(new DockerComposeUpSettings() {
@@ -25,8 +25,20 @@ Task("Run")
   },"run");
 });
 
+Task("build")
+  .IsDependentOn("stop")
+  .Does(() =>
+{
+  DockerComposeUp(new DockerComposeUpSettings() {
+    Files = new string[] {
+      "./docker-compose.yml"
+    },
+    ProjectName = "vlc-remote-control"
+  },"build");
+});
+
 Task("Default")
-  .IsDependentOn("Run")
+  .IsDependentOn("run")
   .Does(() =>
 {
 });

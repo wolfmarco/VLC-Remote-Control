@@ -3,15 +3,15 @@
   "version": "0.0.0",
   "license": "MIT",
   "main": "main.js",
+  "description": "VLC Remote Control",
+  "author": "Marco Wolf",
   "scripts": {
     "ng": "ng",
     "start": "ng serve -H 0.0.0.0",
-    "build": "ng build --prod",
+    "build": "ng build --prod && electron-builder",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "electron": "ng build && electron .",
-    "electron-aot": "ng build --prod && electron ."
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -37,6 +37,7 @@
     "@types/node": "~6.0.60",
     "codelyzer": "^4.0.1",
     "electron": "^1.8.4",
+    "electron-builder": "^20.8.1",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~2.0.0",

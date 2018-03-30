@@ -3,7 +3,12 @@ services:
   run:
     build: ./src/vlc-remote-control/
     volumes:
-      - "./src:/src"
-    command: ng serve -H 0.0.0.0
+      - "./src:C:/src"
+    command: powershell -Command yarn run start
     ports:
      - "4200:4200"
+  build:
+    build: ./src/vlc-remote-control/
+    volumes:
+      - "./src:C:/src"
+    command: powershell -Command yarn run build
