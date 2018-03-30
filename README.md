@@ -20,6 +20,12 @@ Remote control for VLC media player as Angular Single Page Application (SPA)
 
     docker run -it -v D:/Git-Repos/VLC-Remote-Control/src/:C:/src vlcremotecontrol_run powershell
 
+## Docker commands
+
+### Stop all containers
+
+docker stop $(docker ps -a -q)
+
 ### Delete all containers
 docker rm $(docker ps -a -q)
 
