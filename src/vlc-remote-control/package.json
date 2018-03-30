@@ -1,10 +1,20 @@
 {
-  "name": "vlc-remote-control-web-ui",
+  "name": "vlc-remote-control",
   "version": "0.0.0",
   "license": "MIT",
   "main": "main.js",
   "description": "VLC Remote Control",
-  "author": "Marco Wolf",
+  "author": {
+    "name": "Marco Wolf",
+    "email": "mail@wolfmarco.de"
+  },
+  "build": {
+    "appId": "vlc-remote-control",
+    "files": [
+      "main.js",
+      "build"
+    ]
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve -H 0.0.0.0",

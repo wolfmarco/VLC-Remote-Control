@@ -1,42 +1,37 @@
-const { app, BrowserWindow } = require('electron')
+const {app, BrowserWindow} = require('electron')
+const path = require('path')
+const url = require('url')
 
-let win;
+let win
 
 function createWindow () {
-  // Create the browser window.
-  win = new BrowserWindow({
-    width: 600, 
-    height: 600,
-    backgroundColor: '#ffffff',
-    icon: `file://${__dirname}/dist/assets/logo.png`
-  })
+  win = new BrowserWindow({width: 800, height: 600})
 
+  // load the dist folder from Angular
+  win.loadURL(url.format({
+    pathname: path.join(__dirname, 'build/index.html'),
+    protocol: 'file:',
+    slashes: true
+  }))
 
-  win.loadURL(`file://${__dirname}/dist/index.html`)
+  // Open the DevTools optionally:
+  win.webContents.openDevTools()
 
-  //// uncomment below to open the DevTools.
-  // win.webContents.openDevTools()
-
-  // Event when the window is closed.
-  win.on('closed', function () {
+  win.on('closed', () => {
     win = null
   })
 }
 
-// Create window on electron intialization
 app.on('ready', createWindow)
 
-// Quit when all windows are closed.
-app.on('window-all-closed', function () {
 
-  // On macOS specific close process
+app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
 })
 
-app.on('activate', function () {
-  // macOS specific close process
+app.on('activate', () => {
   if (win === null) {
     createWindow()
   }
