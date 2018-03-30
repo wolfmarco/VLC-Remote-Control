@@ -1,10 +1,21 @@
-FROM node:8.10.0-alpine
+FROM microsoft/windowsservercore:10.0.14393.2125
 
-RUN apk add --no-cache bash git openssh
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-RUN yarn global add @angular/cli
+ENV chocolateyUseWindowsCompression false
+
+RUN iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'));
+RUN choco feature disable --name showDownloadProgress
+
+RUN choco install nodejs --version 8.11.1 -y
+RUN choco install yarn --version 1.5.1 -y
+
+VOLUME C:/src
+RUN set-itemproperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'G:' -Value '\??\C:\src' -Type String
+
+WORKDIR 'G:\\vlc-remote-control\\'
+
+RUN yarn global add @angular/cli@1.7.3
 RUN ng set --global packageManager=yarn
-
-WORKDIR /src/vlc-remote-control
 
 RUN yarn install
