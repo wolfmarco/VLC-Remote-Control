@@ -17,8 +17,9 @@ Remote control for VLC media player as Angular Single Page Application (SPA)
 -i, --interactive => Keep STDIN open even if not attached
 -t, --tty => Allocate a pseudo-TTY
 -v, --volume list => Bind mount a volume
+-p, --publish list => Publish a container's port(s) to
 
-    docker run -it -v D:/Git-Repos/VLC-Remote-Control/src/:C:/src vlcremotecontrol_run powershell
+    docker run -it -p 4200:4200 -v D:/Git-Repos/VLC-Remote-Control/src/:C:/src vlcremotecontrol_run powershell
 
 ## Docker commands
 
