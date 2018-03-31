@@ -17,7 +17,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -H 0.0.0.0",
+    "start": "ng serve -H 0.0.0.0 --disable-host-check",
     "build": "ng build --prod && electron-builder",
     "test": "ng test",
     "lint": "ng lint",
