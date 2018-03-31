@@ -38,12 +38,12 @@ export class AppComponent implements OnInit {
   }
 
   onKeyup(event: any) {
-    console.log("altKey: " + event.altKey);
-    console.log("ctrlKey: " + event.ctrlKey);
-    console.log("shiftKey: " + event.shiftKey);
-    console.log("key: " + event.key );
-    console.log("code: " + event.code );
-    console.log("-----------------------");
+    // console.log("altKey: " + event.altKey);
+    // console.log("ctrlKey: " + event.ctrlKey);
+    // console.log("shiftKey: " + event.shiftKey);
+    // console.log("key: " + event.key );
+    // console.log("code: " + event.code );
+    // console.log("-----------------------");
 
     this.text.nativeElement.value = `${event.code}\n`;
   }
