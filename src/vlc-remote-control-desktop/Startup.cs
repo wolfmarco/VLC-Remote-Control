@@ -47,10 +47,12 @@ namespace vlc_remote_control_desktop
 
             Task.Run(async () =>
             {
-                var options = new BrowserWindowOptions()
+                var browserWindowOptions = new BrowserWindowOptions()
                 {
+                    AutoHideMenuBar = true,
+                    Fullscreen = true
                 };
-                await Electron.WindowManager.CreateWindowAsync();
+                await Electron.WindowManager.CreateWindowAsync(browserWindowOptions);
             });
         }
     }
