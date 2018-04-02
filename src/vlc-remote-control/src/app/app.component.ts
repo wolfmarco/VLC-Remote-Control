@@ -34,7 +34,16 @@ export class AppComponent implements OnInit {
       {
         this._electronService.remote.globalShortcut.unregisterAll();
       });
+
+      this._electronService.ipcRenderer.on('changeText', (event, arg) => {
+        this.text.nativeElement.value = arg;
+    });
     }
+  }
+
+  onClick() {
+    console.log("onClick");
+    this._electronService.ipcRenderer.send("testMessage","Hi!!!");
   }
 
   onKeyup(event: any) {

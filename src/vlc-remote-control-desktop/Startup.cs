@@ -45,6 +45,12 @@ namespace vlc_remote_control_desktop
 
             app.UseStaticFiles();
 
+            Electron.IpcMain.On("testMessage", (args) =>
+            {
+                var mainWindow = Electron.WindowManager.BrowserWindows.First();
+                Electron.IpcMain.Send(mainWindow, "changeText", args);
+            });
+
             Task.Run(async () =>
             {
                 var browserWindowOptions = new BrowserWindowOptions()
@@ -52,7 +58,8 @@ namespace vlc_remote_control_desktop
                     AutoHideMenuBar = true,
                     Fullscreen = true
                 };
-                await Electron.WindowManager.CreateWindowAsync(browserWindowOptions);
+                var browserWindow = await Electron.WindowManager.CreateWindowAsync(browserWindowOptions);
+                browserWindow.WebContents.OpenDevTools();
             });
         }
     }
