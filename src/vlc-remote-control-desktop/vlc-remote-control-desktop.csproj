@@ -1,6 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>vlc_remote_control_desktop</AssemblyName>
+    <RootNamespace>vlc_remote_control_desktop</RootNamespace>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="wwwroot\" />
@@ -13,8 +16,21 @@
     <DotNetCliToolReference Include="ElectronNET.CLI" Version="0.0.9" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="LibCecSharp">
+      <HintPath>LibCecSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Update="electron.manifest.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="cec.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="cec.x64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

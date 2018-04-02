@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ElectronNET.API;
 using ElectronNET.API.Entities;
+using vlc_remote_control_desktop.cec;
+using System.Diagnostics;
+using Microsoft.Extensions.Hosting;
 
 namespace vlc_remote_control_desktop
 {
@@ -26,9 +29,9 @@ namespace vlc_remote_control_desktop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            //services.AddSingleton<IHostedService, CecService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -45,21 +48,27 @@ namespace vlc_remote_control_desktop
 
             app.UseStaticFiles();
 
-            Electron.IpcMain.On("testMessage", (args) =>
-            {
-                var mainWindow = Electron.WindowManager.BrowserWindows.First();
-                Electron.IpcMain.Send(mainWindow, "changeText", args);
-            });
-
             Task.Run(async () =>
             {
-                var browserWindowOptions = new BrowserWindowOptions()
-                {
-                    AutoHideMenuBar = true,
-                    Fullscreen = true
-                };
-                var browserWindow = await Electron.WindowManager.CreateWindowAsync(browserWindowOptions);
-                browserWindow.WebContents.OpenDevTools();
+                //var browserWindowOptions = new BrowserWindowOptions()
+                //{
+                //    AutoHideMenuBar = true,
+                //    Fullscreen = true,
+                //    Show = false
+                //};
+
+                //var browserWindow = await Electron.WindowManager.CreateWindowAsync(browserWindowOptions);
+                //browserWindow.OnReadyToShow += () =>
+                //{
+                //    browserWindow.Show();
+                //    browserWindow.WebContents.OpenDevTools();
+                //    Electron.IpcMain.On("testMessage", (args) =>
+                //    {
+                //        Electron.IpcMain.Send(browserWindow, "changeText", args);
+                //    });
+
+                //    //Electron.IpcMain.Send(browserWindow, "changeText", $"Host started...");
+                //};
             });
         }
     }
