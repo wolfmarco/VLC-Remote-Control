@@ -1,44 +1,54 @@
-#addin nuget:?package=Cake.Docker&version=0.9.0
+#addin nuget:?package=Cake.Yarn&version=0.3.7
 
 var target = Argument("target", "Default");
+DirectoryPath electronDirectory = "./src/vlc-remote-control/";
 
-Task("stop")
+Task("clean")
   .Does(() =>
 {
-  DockerComposeKill(new DockerComposeKillSettings() {
-    Files = new string[] {
-      "./docker-compose.yml"
-    },
-    ProjectName = "vlc-remote-controli"
+  try
+  {
+    DeleteDirectories(new DirectoryPath[]
+    {
+      electronDirectory.Combine("obj"),
+      electronDirectory.Combine("bin")
+    }, new DeleteDirectorySettings
+    {
+      Recursive = true,
+      Force = true
+    });
+  }
+  catch(Exception exception)
+  {
+    Information( exception.ToString() );
+  }
+});
+
+Task("restore")
+.Does (() =>
+{
+  DotNetCoreRestore(new DotNetCoreRestoreSettings
+  {
+    WorkingDirectory = electronDirectory
   });
 });
 
-Task("run")
-  .IsDependentOn("stop")
-  .Does(() =>
-{
-  DockerComposeUp(new DockerComposeUpSettings() {
-    Files = new string[] {
-      "./docker-compose.yml"
-    },
-    ProjectName = "vlc-remote-control"
-  },"run");
-});
-
 Task("build")
-  .IsDependentOn("stop")
   .Does(() =>
 {
-  DockerComposeUp(new DockerComposeUpSettings() {
-    Files = new string[] {
-      "./docker-compose.yml"
-    },
-    ProjectName = "vlc-remote-control"
-  },"build");
+  Yarn.FromPath(electronDirectory).Install();
+  Yarn.FromPath(electronDirectory).RunScript("build");
+
+  // var exitCodeWithArgument = StartProcess("dotnet", new ProcessSettings
+  // { 
+  //   Arguments = "electronize start",
+  //   WorkingDirectory = electronDirectory
+  // });
+  // Information("Exit code: {0}", exitCodeWithArgument);
 });
 
 Task("Default")
-  .IsDependentOn("run")
+  .IsDependentOn("build")
   .Does(() =>
 {
 });
