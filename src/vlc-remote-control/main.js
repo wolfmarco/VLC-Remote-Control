@@ -49,13 +49,23 @@ ipcMain.on('ready', (event, arg) => {
   if(isWindows)
   {
     console.log("isWindows");
-    setTimeout(StartMessageHandlerApi,0);
+    // setTimeout(StartMessageHandlerApi,0);
+    TestWndProc();
   }
 });
 
 function TestWndProc()
 {
-  
+  //https://wiki.winehq.org/List_Of_Windows_Messages
+  //https://msdn.microsoft.com/de-de/library/windows/desktop/ms646280(v=vs.85).aspx
+  const WM_KEYDOWN = 256;
+  win.hookWindowMessage(WM_KEYDOWN, (virtualKeyCode, metaData) =>
+  {
+    // console.log("WM_KEYDOWN: " + key);
+    win.webContents.send('log' , {msg: '----------------------------------'});
+    win.webContents.send('log' , {msg: virtualKeyCode});
+    win.webContents.send('log' , {msg: metaData});
+  });
 }
 
 // BOOL WINAPI GetMessage(
