@@ -38,6 +38,10 @@ export class AppComponent implements OnInit {
       this._electronService.ipcRenderer.on('changeText', (event, arg) => {
         this.text.nativeElement.value = arg;
       });
+
+      this._electronService.ipcRenderer.on('log' , (event , data) => { console.log(data.msg) });
+
+      this._electronService.ipcRenderer.send('ready', true);
     }
   }
 
