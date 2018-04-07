@@ -6016,7 +6016,7 @@ redis@^2.7.1:
     redis-commands "^1.2.0"
     redis-parser "^2.6.0"
 
-ref-struct@1:
+ref-struct@1, ref-struct@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ref-struct/-/ref-struct-1.1.0.tgz#5d5ee65ad41cefc3a5c5feb40587261e479edc13"
   dependencies:
@@ -7836,6 +7836,10 @@ widest-line@^2.0.0:
   resolved "https://registry.yarnpkg.com/widest-line/-/widest-line-2.0.0.tgz#0142a4e8a243f8882c0233aa0e0281aa76152273"
   dependencies:
     string-width "^2.1.1"
+
+win32-api@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/win32-api/-/win32-api-1.11.0.tgz#8fdf2de63b814e70baeb47339b88870ff4d3f295"
 
 window-size@0.1.0:
   version "0.1.0"
