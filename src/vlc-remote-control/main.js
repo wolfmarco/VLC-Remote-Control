@@ -49,9 +49,14 @@ ipcMain.on('ready', (event, arg) => {
   if(isWindows)
   {
     console.log("isWindows");
-    setTimeout(StartKeyStateLogger,0);
+    setTimeout(StartMessageHandlerApi,0);
   }
 });
+
+function TestWndProc()
+{
+  
+}
 
 // BOOL WINAPI GetMessage(
 //   _Out_    LPMSG lpMsg,
@@ -71,11 +76,12 @@ function StartMessageHandlerApi()
     const start = new Date().getTime();
     const ttl = 30; // sec
 
-    let title = win.getTitle();
-    const lpszWindow = Buffer.from(title, 'ucs2');
-    const hWnd = user32.FindWindowExW(null, null, null, lpszWindow);
+    // let title = win.getTitle();
+    // const lpszWindow = Buffer.from(title, 'ucs2');
+    // const hWnd = user32.FindWindowExW(null, null, null, lpszWindow);
+    const hWnd = win.getNativeWindowHandle();
 
-    while (count < countLimit && user32.GetMessageW(msg.ref(), null, 0, 0))
+    while (count < countLimit && user32.GetMessageW(msg.ref(), hWnd, 0, 0))
     {
       count++;
       if (new Date().getTime() - start > ttl * 1000) {
