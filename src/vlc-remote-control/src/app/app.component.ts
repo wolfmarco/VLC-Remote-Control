@@ -18,17 +18,17 @@ export class AppComponent implements OnInit {
     console.log("AppComponent: ngOnInit");
     if (this._electronService.isElectronApp)
     {
-      const ret = this._electronService.remote.globalShortcut.register('CommandOrControl+X', () =>
-      {
-        console.log('CommandOrControl+X is pressed');
-      });
+      // const ret = this._electronService.remote.globalShortcut.register('CommandOrControl+X', () =>
+      // {
+      //   console.log('CommandOrControl+X is pressed');
+      // });
 
-      if (!ret)
-      {
-        console.log('registration failed');
-      }
+      // if (!ret)
+      // {
+      //   console.log('registration failed');
+      // }
 
-      console.log("isRegistered: " + this._electronService.remote.globalShortcut.isRegistered('CommandOrControl+X'));
+      // console.log("isRegistered: " + this._electronService.remote.globalShortcut.isRegistered('CommandOrControl+X'));
 
       this._electronService.remote.app.on('will-quit', () =>
       {
